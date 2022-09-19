@@ -1,4 +1,5 @@
 
+# 什么 玩意 还是提交上去 只能手动提交了
 # https://github.com/github/gitignore
 .idea/
 .DS_Store
@@ -16,7 +17,7 @@ static/
 *.json
 *.xml
 #*.exe
-*.exe~
+#*.exe~
 *.dll
 *.so
 *.dylib
