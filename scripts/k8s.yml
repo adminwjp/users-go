@@ -1,0 +1,83 @@
+#不了解 则 直接 模仿 k8s 组件配置
+# 192.168.1.15 ip change 
+# systemctl status kubelet
+# systemctl restart kubelet
+# vim $HOME/.kube/config
+# /var/lib/kubelet/config.yaml not load  /var/lib/kubelet empty dir
+# /etc/sysconfig/kubelet
+# The reset process does not reset or clean up iptables rules or IPVS table
+# https://blog.csdn.net/tjg138/article/details/123938497
+# https://blog.csdn.net/red_sky_blue/article/details/123382335
+# https://www.cnblogs.com/noise/p/15677840.html pass
+# k8s 最好 不要升级版本 不一致了 系统自动的也不要更新
+#master 1.23.10 slave 1.22.10
+# Unable to connect to the server: x509: certificate signed by unknown authority
+#rm -rf $HOME/.kube
+#mkdir -p $HOME/.kube
+# scp -r /etc/kubernetes/ root@192.168.1.4:/etc/kubernetes/
+#  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+# sudo chown $(id -u):$(id -g) $HOME/.kube/config
+# 仍然不行所有配置删除复制修改
+# microk8s 安装 隔离环境  最好 名称不要一直  (k8s多装)
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    k8s-app: go-users
+  name: go-users
+  namespace: kube-system
+spec:
+  ports:
+    - port: 8020
+      targetPort: 8020
+      nodePort: 30020
+  selector:
+    k8s-app: kube-system
+  #LoadBalancer NodePort
+  type: NodePort    
+    
+---
+#api 版本
+apiVersion: apps/v1
+#资源类型
+kind: Deployment
+#资源元数据
+metadata:
+  name: go-users
+  namespace: kube-system
+  labels:
+    app: go-users
+#资源规格 
+spec:
+  #标签选择器
+  selector:
+    matchLabels:
+      app: go-users
+  #pod模板    
+  template:
+    #pod元数据
+    metadata:
+      labels:
+        app: go-users
+    #pod 规格    
+    spec:
+      #容器配置
+      containers:
+      - command:
+        - /go_users/users-go
+        #- --port=4004
+        #- fetch-registry=false
+        image: go_users:v1
+        ports: 
+          - containerPort: 8020 
+            protocol: TCP          
+        name: go-users  
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "50Mi"
+          limits:
+            cpu: "100m"
+            memory: "50Mi"

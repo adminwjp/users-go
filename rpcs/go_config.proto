@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+option go_package = "impl/service";
+//annotaion package
+option java_package = "com.mall.user.rpc.grpc.gouser";
+option  csharp_namespace="Com.UserSystem.Protos.OutsideService";
+   // protoc go_config.proto  --go_out=plugins=grpc:.
+   // protoc --plugin=protoc-gen-grpc=grpc_csharp_plugin.exe  --csharp_out=csharp --grpc_out=csharp    go_config.proto
+   // protoc-3.9.2-windows-x86_64.exe --plugin=protoc-gen-grpc-java=protoc-gen-grpc-java-1.17.1-windows-x86_64.exe  --java_out=java --grpc-java_out=java  --proto_path=.  go_config.proto
+//https://blog.csdn.net/weixin_33697898/article/details/85980797?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-3.vipsorttest&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-3.vipsorttest
+
+package configs;
+service ConfigGrpcService {
+  rpc SaveDb (DbRequest) returns (Reply);
+  rpc SaveTab (TableRequest) returns (Reply);
+  rpc ListDb (CEmptyRequest) returns (Reply);
+  rpc ListTab (CEmptyRequest) returns (Reply);
+}
+message CEmptyRequest {
+	
+}
+
+
+message DbRequest {
+  int32  id=1;
+  string  default_db=2;
+  string  db=3;
+  uint64  ip=4;
+  string  ip_string=5;
+  uint32  port=6;
+  uint64  count=7;
+  uint64  max_count=8;
+  uint64  space=9;
+  uint64  start_id=10;
+  uint64  end_id=11;
+	string table=12;
+}
+message TableRequest {
+  int32  id=1;
+  string  default_db=2;
+  string  db=3;
+  uint64  ip=4;
+  string  ip_string=5;
+  uint32  port=6;
+  uint64  count=7;
+  uint64  max_count=8;
+  uint64  space=9;
+  uint64  start_id=10;
+  uint64  end_id=11;
+  string table=12;
+  string  default_table=13;
+  string  ids=14;
+  string  default_ids=15;
+}
+
+
+message Reply{
+  int32 status=1;
+  string data=2;
+}

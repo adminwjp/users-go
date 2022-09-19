@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option go_package = "impl/service";
+//annotaion package
+option java_package = "com.mall.user.rpc.grpc.gouser";
+option  csharp_namespace="Com.UserSystem.Protos.OutsideService";
+//  protoc go_register_service.proto  --go_out=plugins=grpc:.
+  //  protoc --plugin=protoc-gen-grpc=grpc_csharp_plugin.exe  --csharp_out=csharp --grpc_out=csharp    go_register_service.proto
+  //  protoc-3.9.2-windows-x86_64.exe --plugin=protoc-gen-grpc-java=protoc-gen-grpc-java-1.17.1-windows-x86_64.exe  --java_out=java --grpc-java_out=java  --proto_path=.  go_register_service.proto
+//https://blog.csdn.net/weixin_33697898/article/details/85980797?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-3.vipsorttest&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-3.vipsorttest
+
+package registers;
+// vs   编辑器 net 不支持 同时 client server (需要拆开)需要手动 生成 proto
+service RegisterGrpcService {
+  // Sends a greeting
+  rpc Register (ServiceRequest) returns (ServiceReply);
+  rpc Callback (REmptyRequest) returns (ServiceReply);
+  rpc Check (NameRequest) returns (ServiceApiReply);
+  rpc Get (NameRequest) returns (ServiceApiReply);
+}
+message REmptyRequest {
+	
+}
+message NameRequest {
+	string name=1;
+}
+message ServiceRequest {
+  string ip=1;
+  int32 port=2;
+  string name=3;
+}
+message ServiceApiReply {
+  string ip=1;
+  int32 port=2;
+  string name=3;
+  int32 status=4;
+}
+
+message ServiceReply{
+  int32 status=1;
+  string msg=2;
+}

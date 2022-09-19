@@ -1,0 +1,65 @@
+module github.com/adminwjp/users-go
+
+go 1.16
+
+// 报错不对 一个个解决
+// replace github.com/adminwjp/infrastructure-go => ./github.com/adminwjp/infrastructure-go
+replace github.com/adminwjp/infrastructure-go => E:\software\go\src\github.com\adminwjp\infrastructure-go
+
+require (
+	github.com/Unknwon/goconfig v0.0.0-20200908083735-df7de6a44db8
+	github.com/adminwjp/infrastructure-go v0.0.0-00010101000000-000000000000
+	github.com/apache/thrift v0.16.0
+	github.com/beego/beego/v2 v2.0.4
+	github.com/dchest/captcha v0.0.0-20200903113550-03f5f0333e1f
+	github.com/denisenkom/go-mssqldb v0.12.0
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/fsnotify/fsnotify v1.5.4 // indirect
+	github.com/gin-contrib/sessions v0.0.5
+	github.com/gin-gonic/gin v1.8.1
+	github.com/go-openapi/swag v0.21.1 // indirect
+	github.com/go-playground/locales v0.14.0
+	github.com/go-playground/universal-translator v0.18.0
+	github.com/go-playground/validator/v10 v10.10.0
+	github.com/go-redis/redis v6.15.9+incompatible
+	github.com/go-sql-driver/mysql v1.6.0
+	github.com/jinzhu/gorm v1.9.16
+	github.com/lib/pq v1.10.6
+	github.com/mattn/go-oci8 v0.1.1
+	github.com/mattn/go-sqlite3 v2.0.3+incompatible
+	github.com/olivere/elastic/v7 v7.0.23
+	github.com/stretchr/testify v1.7.1
+	github.com/swaggo/files v0.0.0-20210815190702-a29dd2bc99b2
+	github.com/swaggo/gin-swagger v1.4.1
+	github.com/swaggo/swag v1.8.0 // indirect
+	golang.org/x/sys v0.0.0-20220627191245-f75cf1eec38b // indirect
+	golang.org/x/tools v0.1.10 // indirect
+	golang.org/x/xerrors v0.0.0-20220609144429-65e65417b02f // indirect
+	google.golang.org/grpc v1.38.0
+	google.golang.org/protobuf v1.28.0
+	gopkg.in/go-playground/assert.v1 v1.2.1 // indirect
+	gopkg.in/go-playground/validator.v9 v9.31.0
+	gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22
+	gopkg.in/yaml.v3 v3.0.0 // indirect
+	gorm.io/driver/mysql v1.0.4
+	gorm.io/driver/postgres v1.0.8
+	gorm.io/driver/sqlite v1.1.4
+	gorm.io/driver/sqlserver v1.0.4
+
+	//gorm.io/driver/mysql v1.3.2
+	//gorm.io/driver/postgres v1.0.8
+	//gorm.io/driver/sqlite v1.1.4
+	//gorm.io/driver/sqlserver v1.3.2
+	//gorm.io/gorm v1.23.4
+
+	//https://www.jb51.net/article/251496.htm
+	//没用报错
+	//https://m.imooc.com/wenda/detail/633058
+	//github.com/cengsin/oracle v1.0.0
+	//v1.21.16 v1.20.1 版本冲突不好解决 各个依赖 过不去 需要手动打包
+	//明明有
+	gorm.io/gorm v1.23.7
+
+//github.com/google/go-cmp v0.4.0
+//golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e
+)

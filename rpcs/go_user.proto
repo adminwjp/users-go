@@ -1,0 +1,179 @@
+syntax = "proto3";
+option go_package = "impl/service";
+option java_package = "com.mall.user.rpc.grpc.gouser";
+option  csharp_namespace="Com.UserSystem.Protos.OutsideService";
+package users;
+// protoc go_user.proto  --go_out=plugins=grpc:.
+// protoc --plugin=protoc-gen-grpc=grpc_csharp_plugin.exe  --csharp_out=csharp --grpc_out=csharp    go_user.proto
+
+//  protoc-3.9.2-windows-x86_64.exe --plugin=protoc-gen-grpc-java=protoc-gen-grpc-java-1.17.1-windows-x86_64.exe  --java_out=java --grpc-java_out=java  --proto_path=.  go_user.proto
+
+message UserRequest {
+  string account=1;
+  string pwd=2;
+  int32 flag=3;//1 phone 2 email 3 user_name
+}
+message UserPhoneRequest {
+  string phone=1;
+  string pwd=2;
+}
+message UserEmailRequest {
+  string email=1;
+  string pwd=2;
+}
+message UserUserNameRequest {
+  string user_name=1;
+  string pwd=2;
+}
+message AccountRequest {
+  string account=1;
+  int32 flag=2;//1 phone 2 email 3 user_name
+}
+message PhoneRequest {
+  string phone=1;
+}
+message EmailRequest {
+  string email=1;
+}
+message UserNameRequest {
+  string user_name=1;
+}
+message UpdatePhoneRequest {
+  string phone=1;
+  string new_phone=2;
+}
+message UpdateEmailRequest {
+  string email=1;
+  string new_email=2;
+}
+message UpdateEmailByPhoneRequest {
+  string email=1;
+  string phone=2;
+}
+message UpdatePwdRequest {
+  string pwd=1;
+  string new_pwd=2;
+}
+message UpdatePwdByEmailRequest {
+  string pwd=1;
+  string email=2;
+}
+message UpdatePwdByPhoneRequest {
+  string pwd=1;
+  string phone=2;
+}
+//card_id  card_photo1 card_photo2 hand_card_photo1 hand_card_photo2
+message UpdateAuthBasicRequest {
+  int64 user_id=1;
+  string card_id=2;
+  string card_photo1=3;
+  string card_photo2=4;
+  string hand_card_photo1=5;
+  string hand_card_photo2=6;
+}
+
+message IdGrpc {
+  int64 id=1;
+}
+message ExistsReply {
+  bool exists=1;
+}
+message ResultReply {
+  int32 result=1;
+}
+//id nicK_name phone email user_name pwd reg_ip login_ip reg_date login_date
+//flag msg user_id operator_ip operator_date
+message UserReply {
+  int64 id=1;
+  string phone=2;
+  string email=3;
+  string     user_name=4;
+  string pwd=5;
+  int64     reg_ip=6;
+  int64 login_ip=7;
+  int64     reg_date=8;
+  int64  login_date=9;
+  string card_id=10;
+  string card_photo1=11;
+  string card_photo2=12;
+  string hand_card_photo1=13;
+  string hand_card_photo2=14;
+}
+message UserBasicReply {
+  int64 id=1;
+  int64 user_id=2;
+  string card_id=3;
+  string card_photo1=4;
+  string card_photo2=5;
+  string hand_card_photo1=6;
+  string hand_card_photo2=7;
+}
+message AdminReply {
+  int64 id=1;
+  string phone=2;
+  string email=3;
+  string     user_name=4;
+  string pwd=5;
+  int64     reg_ip=6;
+  int64 login_ip=7;
+  int64     reg_date=8;
+  int64  login_date=9;
+}
+service UserGrpcService {
+  rpc login (UserRequest) returns (UserReply);
+  rpc login_by_phone (UserPhoneRequest) returns (UserReply);
+  rpc login_by_email (UserEmailRequest) returns (UserReply);
+  rpc login_by_user_name (UserUserNameRequest) returns (UserReply);
+
+  rpc register (UserRequest) returns (IdGrpc);
+  rpc register_by_phone (UserPhoneRequest) returns (IdGrpc);
+  rpc register_by_email (UserEmailRequest) returns (IdGrpc);
+  rpc register_by_user_name (UserUserNameRequest) returns (IdGrpc);
+
+  rpc get (IdGrpc) returns (UserReply);
+
+  rpc get_auth_basic (IdGrpc) returns (UpdateAuthBasicRequest);
+
+  rpc update_phone (UpdatePhoneRequest) returns (ResultReply);
+
+  rpc update_email (UpdateEmailRequest) returns (ResultReply);
+
+  rpc update_email_by_phone (UpdateEmailByPhoneRequest) returns (ResultReply);
+
+  rpc update_pwd_by_phone (UpdatePwdByPhoneRequest) returns (ResultReply);
+  rpc update_pwd_by_email (UpdatePwdByEmailRequest) returns (ResultReply);
+
+  rpc update_auth_basic (UpdateAuthBasicRequest) returns (ResultReply);
+  rpc exists (AccountRequest) returns (ExistsReply);
+  rpc exists_phone (PhoneRequest) returns (ExistsReply);
+  rpc exists_email (EmailRequest) returns (ExistsReply);
+  rpc exists_user_name (UserNameRequest) returns (ExistsReply);
+}
+service AdminGrpcService {
+  rpc login (UserRequest) returns (AdminReply);
+  rpc login_by_phone (UserPhoneRequest) returns (AdminReply);
+  rpc login_by_email (UserEmailRequest) returns (AdminReply);
+  rpc login_by_user_name (UserUserNameRequest) returns (AdminReply);
+
+  rpc register (UserRequest) returns (IdGrpc);
+  rpc register_by_phone (UserPhoneRequest) returns (IdGrpc);
+  rpc register_by_email (UserEmailRequest) returns (IdGrpc);
+  rpc register_by_user_name (UserUserNameRequest) returns (IdGrpc);
+
+  rpc get (IdGrpc) returns (UserReply);
+
+  rpc update_phone (UpdatePhoneRequest) returns (ResultReply);
+
+  rpc update_email (UpdateEmailRequest) returns (ResultReply);
+  rpc update_email_by_phone (UpdateEmailByPhoneRequest) returns (ResultReply);
+
+  rpc update_pwd (UpdatePwdRequest) returns (ResultReply);
+  rpc update_pwd_by_phone (UpdatePwdByPhoneRequest) returns (ResultReply);
+  rpc update_pwd_by_email (UpdatePwdByEmailRequest) returns (ResultReply);
+
+
+  rpc exists (AccountRequest) returns (ExistsReply);
+  rpc exists_phone (PhoneRequest) returns (ExistsReply);
+  rpc exists_email (EmailRequest) returns (ExistsReply);
+  rpc exists_user_name (UserNameRequest) returns (ExistsReply);
+}

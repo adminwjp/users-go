@@ -1,0 +1,32 @@
+#http://nodeca.github.io/js-yaml/ 语法检测
+version: "3"
+# docker-compose up
+services:
+  go_users:    
+    #镜像名:版本
+    image: "go_users:v1"
+    container_name: go_users
+    #restart: always
+    #指定服务运行的端口
+    ports:
+      - "8020:8020"
+    #启动时，要覆盖的环境变量配置
+    environment:
+      #数据库IP
+      - url="jdbc:mysql://192.168.1.9:3306/saas?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC"
+      #数据库用户名
+      - username=root
+      #数据库密码
+      - password=123456
+      #redis的IP
+      - REDIS_HOST=redis
+      #redis的端口
+      - REDIS_PORT=6379
+      - name=go_users
+      - port=8020
+      - hostname=192.168.1.9
+      - defaultZone=http://192.168.1.9:4001/eureka/,http://192.168.1.9:4002/eureka/,http://192.168.1.9:4003/eureka/
+    #依赖的服务
+    #depends_on:
+      #- mysql
+      #- redis
